@@ -1,5 +1,5 @@
 var fs = require("fs");
-let data = fs.readFileSync('input/input01.txt').toString();
+let data = fs.readFileSync('../input/input01.txt').toString();
 let copy = data;
 let operators = copy.split(/[\n\r0-9]+/);
 operators = operators.filter((op) => op.length > 0);

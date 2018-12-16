@@ -1,5 +1,5 @@
 var fs = require("fs");
-let data = fs.readFileSync("input/input02.txt").toString();
+let data = fs.readFileSync("../input/input02.txt").toString();
 let ids = data.split("\n");
 
 for(let i = 0; i < ids.length; i++) {
