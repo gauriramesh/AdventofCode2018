@@ -3,10 +3,12 @@ let data = fs.readFileSync("../input/input03.txt").toString();
 let claims = data.split("\r\n");
 
 var cloth = {};
-var numOverlapping = 0;
+var idClaims = {};
 
 for(claim of claims) {
     let claimArray = claim.split(/[\@\:\s]+/);
+    let id = claimArray[0];
+    idClaims[id] = [];
     let startingCoords = claimArray[1].split(',');
     let lengths = claimArray[2].split('x');
 
@@ -21,6 +23,7 @@ for(claim of claims) {
     for(let i = xStart; i < yBound; i++) {
         for(let j = yStart; j < xBound; j++) {
             let key = `${i},${j}`;
+            idClaims[id].push(key);
             if(cloth[key] == undefined) {
                 cloth[key] = 1;
             } else {
@@ -30,12 +33,18 @@ for(claim of claims) {
     }
 }
 
-for(claim in cloth) {
-    if(cloth[claim] > 1) {
-        numOverlapping++;
+
+let keys = Object.keys(idClaims);
+for(let i = 0; i < keys.length; i++) {
+    let idIsUnique = true;
+    idClaims[keys[i]].forEach(element => {
+        if(cloth[element] !== 1) {
+            idIsUnique = false;
+        }
+    });
+    if(idIsUnique) {
+        console.log(`The id with no overlapping fabric is ${keys[i]}`);
     }
 }
-
-console.log(`The number of overlapping square inches is ${numOverlapping}.`);
 
 
